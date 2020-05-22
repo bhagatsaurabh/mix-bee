@@ -1,6 +1,8 @@
 # virtual-mix
 A basic online virtual sound mixing webapp
 
+Check it out [here](https://virtual-mix.herokuapp.com/)
+
 Mix, record, download audio on the spot.
 
   * Create short sound Clips
@@ -23,4 +25,3 @@ Currently supported effects from tuna.js:
   * Bitcrusher
   * Moog
 
-Check it out [here](https://virtual-mix.herokuapp.com/)
