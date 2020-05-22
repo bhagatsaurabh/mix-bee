@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Virtual Mixer</title>
+    <link type="text/css" rel="stylesheet" href="Styles/styles.css" />
+    <script type="text/javascript" src="Scripts/BufferLoader.js"></script>
+    <script type="text/javascript" src="Scripts/tuna.js"></script>
+    <script type="text/javascript" src="Scripts/recorder.js"></script>
+    <script type="text/javascript" src="Scripts/player.js"></script>
+    <noscript>
+        <style type="text/css">
+            #back, #floating-header, #welcome, #effect_container, #synth_pad, #userRecordings
+            {
+                display: none;
+                pointer-events:none;
+            }
+        </style>
+        <center><h1 style="font-family:punavuor">Please enable JavaScript !</h1></center>
+    </noscript>
+</head>
+<body>
+    <img id="back" src="Images/back.png"/>
+    <div id="floating-header">
+        <img id="logoHeader" src="Images/logo.jpg" width="50" height="50"/>
+        <img id="burger_menu" src="Images/burger.png" onclick="openMenu();" width="30" height="30"/>
+        <img id="effects_burger_menu" onclick="launchControl();" width="42" height="42"/>
+        <img id="controls_burger_menu" onclick="launchControlPanel();" width="42" height="42"/>
+        <h2 id="titleHeader" onclick="window.open('/', '_self');">Virtual Synthesizer</h2>
+        <progress id="refer" value="0" max="4200"></progress>
+        <div id="menu">
+            <h3 id="launch_bar" class="options_bar" onclick="launchPad();">Launch Synth Pad</h3>
+            <h3 id="record_bar" class="options_bar" onclick="launchRecordList();">Recordings</h3>
+            <h4 id="record_notify" class="options_bar">Recording Saved !</h4>
+        </div>
+    </div>
+    <div id="welcome">
+        <h1 style="z-index:14;position:absolute;top:40%;left:10%;opacity:0.6;">Music on my mind</h1>
+        <img id="welcome0" src="Images/welcome.jpg"/>
+    </div>
+    <div id="effect_container">
+        <h2 class="control_heading">Effects</h2><br/>
+        <div id="controls">
+            <h3 class="control_heading">Chorus</h3><div class="checkboxThree"><input type="checkbox" value="1" id="chorus_toggle" name="" /><label for="chorus_toggle" onmouseup="chorusFilter();"></label></div><br />
+            <div class="panels" id="chorus_panel">
+                <h4 class="subcontrol_heading">Rate : </h4><input class="control_range" type="range" value="150" min="1" max="1000" oninput="chorusParams(this.value, 0);" /><br />
+                <h4 class="subcontrol_heading">FeedBack : </h4><input class="control_range" type="range" value="2" min="0" max="10" oninput="chorusParams(this.value, 1);" /><br />
+                <h4 class="subcontrol_heading">Delay : </h4><input class="control_range" type="range" value="45" min="0" max="10000" oninput="chorusParams(this.value, 2);" />
+            </div>
+            <h3 class="control_heading">Delay</h3><div class="checkboxThree"><input type="checkbox" value="1" id="delay_toggle" name="" /><label for="delay_toggle" onmouseup="delayFilter();"></label></div><br />
+            <div class="panels" id="delay_panel">
+                <h4 class="subcontrol_heading">FeedBack : </h4><input class="control_range" type="range" value="45" min="0" max="100" oninput="delayParams(this.value, 0);" /><br />
+                <h4 class="subcontrol_heading">DelayTime : </h4><input class="control_range" type="range" value="150" min="1" max="3000" oninput="delayParams(this.value, 1);" /><br />
+                <h4 class="subcontrol_heading">Wet Level : </h4><input class="control_range" type="range" value="25" min="0" max="100" oninput="delayParams(this.value, 2);" /><br />
+                <h4 class="subcontrol_heading">Dry Level : </h4><input class="control_range" type="range" value="100" min="0" max="100" oninput="delayParams(this.value, 3);" /><br />
+                <h4 class="subcontrol_heading">Cut Off : </h4><input class="control_range" type="range" min="20" value="2000" max="22050" oninput="delayParams(this.value, 4);" />
+            </div>
+            <h3 class="control_heading">Phaser</h3><div class="checkboxThree"><input type="checkbox" value="1" id="phaser_toggle" name="" /><label for="phaser_toggle" onmouseup="phaserFilter();"></label></div><br />
+            <div class="panels" id="phaser_panel">
+                <h4 class="subcontrol_heading">Rate : </h4><input class="control_range" type="range" min="1" max="1000" value="120" oninput="phaserParams(this.value, 0);" /><br />
+                <h4 class="subcontrol_heading">Depth : </h4><input class="control_range" type="range" min="0" max="10" value="3" oninput="phaserParams(this.value, 1);" /><br />
+                <h4 class="subcontrol_heading">FeedBack : </h4><input class="control_range" type="range" min="0" max="10" value="2" oninput="phaserParams(this.value, 2);" /><br />
+                <h4 class="subcontrol_heading">StereoPhase : </h4><input class="control_range" type="range" min="0" max="180" value="30" oninput="phaserParams(this.value, 3);" /><br />
+                <h4 class="subcontrol_heading">BaseMod Freq : </h4><input class="control_range" type="range" min="500" max="1500" value="700" oninput="phaserParams(this.value, 4);" />
+
+            </div>
+            <h3 class="control_heading">Overdrive</h3><div class="checkboxThree"><input type="checkbox" value="1" id="overdrive_toggle" name="" /><label for="overdrive_toggle" onmouseup="overdriveFilter();"></label></div><br />
+            <div class="panels" id="overdrive_panel">
+                <h4 class="subcontrol_heading">Output Gain : </h4><input class="control_range" type="range" value="5" min="0" max="10" oninput="overdriveParams(this.value, 0);" /><br />
+                <h4 class="subcontrol_heading">Drive : </h4><input class="control_range" type="range" value="7" min="0" max="10" oninput="overdriveParams(this.value, 1);" /><br />
+                <h4 class="subcontrol_heading">Curve Amount : </h4><input class="control_range" type="range" value="10" min="0" max="10" oninput="overdriveParams(this.value, 2);" />
+            </div>
+            <h3 class="control_heading">Compressor</h3><div class="checkboxThree"><input type="checkbox" value="1" id="compressor_toggle" name="" /><label for="compressor_toggle" onmouseup="compressorFilter();"></label></div>
+            <div class="panels" id="compressor_panel">
+                <h4 class="subcontrol_heading">Threshold : </h4><input class="control_range" type="range" min="-100" max="0" value="-1" oninput="compressorParams(this.value, 0);" /><br />
+                <h4 class="subcontrol_heading">Attack : </h4><input class="control_range" type="range" min="0" max="1000" value="1" oninput="compressorParams(this.value, 1);" /><br />
+                <h4 class="subcontrol_heading">Release : </h4><input class="control_range" type="range" min="0" max="3000" value="0" oninput="compressorParams(this.value, 2);" /><br />
+                <h4 class="subcontrol_heading">Ratio : </h4><input class="control_range" type="range" min="1" max="20" value="4" oninput="compressorParams(this.value, 3);" /><br />
+                <h4 class="subcontrol_heading">Knee : </h4><input class="control_range" type="range" min="0" max="40" value="5" oninput="compressorParams(this.value, 4);" />
+            </div>
+            <h3 class="control_heading">Tremolo</h3><div class="checkboxThree"><input type="checkbox" value="1" id="tremolo_toggle" name="" /><label for="tremolo_toggle" onmouseup="tremoloFilter();"></label></div>
+            <div class="panels" id="tremolo_panel">
+                <h4 class="subcontrol_heading">Intensity : </h4><input class="control_range" type="range" min="0" max="10" value="3" oninput="tremoloParams(this.value, 0);" /><br />
+                <h4 class="subcontrol_heading">Rate : </h4><input class="control_range" type="range" min="1" max="8000" value="4000" oninput="tremoloParams(this.value, 1);" /><br />
+                <h4 class="subcontrol_heading">StereoPhase : </h4><input class="control_range" type="range" min="0" max="180" value="0" oninput="tremoloParams(this.value, 2);" />
+            </div>
+            <h3 class="control_heading">WahWah</h3><div class="checkboxThree"><input type="checkbox" value="1" id="wah_toggle" name="" /><label for="wah_toggle" onmouseup="wahFilter();"></label></div>
+            <div class="panels" id="wah_panel">
+                <h4 class="subcontrol_heading">Base Freq : </h4><input class="control_range" type="range" min="0" max="10" value="5" oninput="wahParams(this.value, 0);" /><br />
+                <h4 class="subcontrol_heading">Excursion Octave : </h4><input class="control_range" type="range" min="1" max="6" value="2" oninput="wahParams(this.value, 1);" /><br />
+                <h4 class="subcontrol_heading">Sweep : </h4><input class="control_range" type="range" min="0" max="10" value="2" oninput="wahParams(this.value, 2);" /><br />
+                <h4 class="subcontrol_heading">Resonance : </h4><input class="control_range" type="range" min="1" max="100" value="10" oninput="wahParams(this.value, 3);" /><br />
+                <h4 class="subcontrol_heading">Sensitivity : </h4><input class="control_range" type="range" min="-10" max="10" value="5" oninput="wahParams(this.value, 4);" />
+            </div>
+            <h3 class="control_heading">BitCrusher</h3><div class="checkboxThree"><input type="checkbox" value="1" id="bit_toggle" name="" /><label for="bit_toggle" onmouseup="bitCFilter();"></label></div>
+            <div class="panels" id="bit_panel">
+                <h4 class="subcontrol_heading">Bits : </h4><input class="control_range" type="range" min="1" max="16" value="4" oninput="bitParams(this.value, 0);" /><br />
+                <h4 class="subcontrol_heading">Normal Freq : </h4><input class="control_range" type="range" min="0" max="10" value="1" oninput="bitParams(this.value, 1);" /><br />
+                <h4 class="subcontrol_heading">Buffer Size : </h4><input class="control_range" type="range" min="256" max="16384" value="4096" oninput="bitParams(this.value, 2);" />
+            </div>
+            <h3 class="control_heading">Moog</h3><div class="checkboxThree"><input type="checkbox" value="1" id="moog_toggle" name="" /><label for="moog_toggle" onmouseup="moogFilter();"></label></div>
+            <div class="panels" id="moog_panel">
+                <h4 class="subcontrol_heading">Cut Off : </h4><input class="control_range" type="range" min="0" max="1000" value="65" oninput="moogParams(this.value, 0);" /><br />
+                <h4 class="subcontrol_heading">Resonance : </h4><input class="control_range" type="range" min="0" max="40" value="35" oninput="moogParams(this.value, 1);" /><br />
+                <h4 class="subcontrol_heading">Buffer Size : </h4><input class="control_range" type="range" min="256" max="16384" value="4096" oninput="moogParams(this.value, 2);" />
+            </div>
+        </div>
+    </div>
+    <div id="userRecordings">
+        <div id="listRecord">
+            <h3 align="center">Your Recordings</h3>
+            <img id="back_record" width="42" height="42" onclick="launchRecordList();"/>
+            <ul id="recordingslist"></ul>
+        </div>
+    </div>
+    <div id="synth_pad">
+        <div id="graph1" class="graph"></div>
+        <div id="graph2" class="graph"></div>
+        <div id="control_panel">
+            <input class="control_buttons" id="button_stop" type="button" value="Stop" onclick="stopTracks();" />
+            <input class="control_buttons" id="button_record" type="button" value="Record" onclick="recordTracks();" />
+            <input class="control_buttons" id="button_save" type="button" value="Save" onclick="stopRecordTracks();" />
+        </div>
+        <div id="back_style1" class="pseudo"></div>
+        <div id="back_style2" class="pseudo"></div>
+        <div id="back_style3" class="pseudo"></div>
+        <div id="back_style4" class="pseudo"></div>
+        <div id="back_style5" class="pseudo"></div>
+        <div id="back_style6" class="pseudo"></div>
+        <div id="back_style7" class="pseudo"></div>
+        <div id="back_style8" class="pseudo"></div>
+        <div id="back_style9" class="pseudo"></div>
+        <div id="back_style10" class="pseudo"></div>
+        <div id="back_style11" class="pseudo"></div>
+        <div id="back_style12" class="pseudo"></div>
+        <div id="back_style13" class="pseudo"></div>
+        <div id="back_style14" class="pseudo"></div>
+        <div id="back_style15" class="pseudo"></div>
+        <div id="back_style16" class="pseudo"></div>
+        <div id="back_style17" class="pseudo"></div>
+        <div id="back_style18" class="pseudo"></div>
+        <div id="back_style19" class="pseudo"></div>
+        <div id="back_style20" class="pseudo"></div>
+        <div id="back_style21" class="pseudo"></div>
+        <div id="back_style22" class="pseudo"></div>
+        <div id="back_style23" class="pseudo"></div>
+        <div id="back_style24" class="pseudo"></div>
+        <div id="back_style25" class="pseudo"></div>
+        <div id="back_style26" class="pseudo"></div>
+        <div id="back_style27" class="pseudo"></div>
+        <div id="back_style28" class="pseudo"></div>
+        <div id="back_style29" class="pseudo"></div>
+        <div id="back_style30" class="pseudo"></div>
+        <div id="back_style31" class="pseudo"></div>
+        <div id="back_style32" class="pseudo"></div>
+        <div id="back_style33" class="pseudo"></div>
+        <div id="back_style34" class="pseudo"></div>
+        <div id="back_style35" class="pseudo"></div>
+        <div id="back_style36" class="pseudo"></div>
+
+        <img id="hexapad1" usemap="#map1" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map1"><area onclick="waitingForCompletion(0);padTouched(0);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad2" usemap="#map2" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map2"><area onclick="waitingForCompletion(1);padTouched(1);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad3" usemap="#map3" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map3"><area onclick="waitingForCompletion(2);padTouched(2);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad4" usemap="#map4" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map4"><area onclick="waitingForCompletion(3);padTouched(3);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad5" usemap="#map5" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map5"><area onclick="waitingForCompletion(4);padTouched(4);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad6" usemap="#map6" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map6"><area onclick="waitingForCompletion(5);padTouched(5);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad7" usemap="#map7" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map7"><area onclick="waitingForCompletion(6);padTouched(6);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad8" usemap="#map8" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map8"><area onclick="waitingForCompletion(7);padTouched(7);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad9" usemap="#map9" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map9"><area onclick="waitingForCompletion(8);padTouched(8);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad10" usemap="#map10" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map10"><area onclick="waitingForCompletion(9);padTouched(9);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad11" usemap="#map11" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map11"><area onclick="waitingForCompletion(10);padTouched(10);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad12" usemap="#map12" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map12"><area onclick="waitingForCompletion(11);padTouched(11);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad13" usemap="#map13" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map13"><area onclick="waitingForCompletion(12);padTouched(12);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad14" usemap="#map14" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map14"><area onclick="waitingForCompletion(13);padTouched(13);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad15" usemap="#map15" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map15"><area onclick="waitingForCompletion(14);padTouched(14);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad16" usemap="#map16" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map16"><area onclick="waitingForCompletion(15);padTouched(15);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad17" usemap="#map17" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map17"><area onclick="waitingForCompletion(16);padTouched(16);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad18" usemap="#map18" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map18"><area onclick="waitingForCompletion(17);padTouched(17);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad19" usemap="#map19" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map19"><area onclick="waitingForCompletion(18);padTouched(18);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad20" usemap="#map20" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map20"><area onclick="waitingForCompletion(19);padTouched(19);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad21" usemap="#map21" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map21"><area onclick="waitingForCompletion(20);padTouched(20);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad22" usemap="#map22" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map22"><area onclick="waitingForCompletion(21);padTouched(21);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad23" usemap="#map23" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map23"><area onclick="waitingForCompletion(22);padTouched(22);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad24" usemap="#map24" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map24"><area onclick="waitingForCompletion(23);padTouched(23);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad25" usemap="#map25" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map25"><area onclick="waitingForCompletion(24);padTouched(24);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad26" usemap="#map26" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map26"><area onclick="waitingForCompletion(25);padTouched(25);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad27" usemap="#map27" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map27"><area onclick="waitingForCompletion(26);padTouched(26);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad28" usemap="#map28" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map28"><area onclick="waitingForCompletion(27);padTouched(27);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad29" usemap="#map29" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map29"><area onclick="waitingForCompletion(28);padTouched(28);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad30" usemap="#map30" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map30"><area onclick="waitingForCompletion(29);padTouched(29);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad31" usemap="#map31" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map31"><area onclick="waitingForCompletion(30);padTouched(30);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad32" usemap="#map32" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map32"><area onclick="waitingForCompletion(31);padTouched(31);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad33" usemap="#map33" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map33"><area onclick="waitingForCompletion(32);padTouched(32);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad34" usemap="#map34" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map34"><area onclick="waitingForCompletion(33);padTouched(33);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad35" usemap="#map35" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map35"><area onclick="waitingForCompletion(34);padTouched(34);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+        <img id="hexapad36" usemap="#map36" width="64" height="64" src="Images/hexapad_vert.png" /><map name="map36"><area onclick="waitingForCompletion(35);padTouched(35);" alt="test" shape="poly" coords="16, 4, 48, 4, 64, 33, 48, 60, 16, 60, 0, 33, 16, 4" href="#" /></map>
+    </div>
+</body>
+</html>
