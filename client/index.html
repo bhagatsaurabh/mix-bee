@@ -4,9 +4,9 @@
     <meta charset="utf-8" />
     <title>Virtual Mixer</title>
     <link type="text/css" rel="stylesheet" href="Styles/styles.css" />
-    <script type="text/javascript" src="Scripts/BufferLoader.js"></script>
-    <script type="text/javascript" src="Scripts/tuna.js"></script>
-    <script type="text/javascript" src="Scripts/recorder.js"></script>
+    <script type="text/javascript" src="Libs/BufferLoader.js"></script>
+    <script type="text/javascript" src="Libs/tuna.js"></script>
+    <script type="text/javascript" src="Libs/recorder.js"></script>
     <script type="text/javascript" src="Scripts/player.js"></script>
     <noscript>
         <style type="text/css">
@@ -26,10 +26,10 @@
         <img id="burger_menu" src="Images/burger.png" onclick="openMenu();" width="30" height="30"/>
         <img id="effects_burger_menu" onclick="launchControl();" width="42" height="42"/>
         <img id="controls_burger_menu" onclick="launchControlPanel();" width="42" height="42"/>
-        <h2 id="titleHeader" onclick="window.open('/', '_self');">Virtual Synthesizer</h2>
+        <h2 id="titleHeader" onclick="window.open('/', '_self');">Virtual Mixer</h2>
         <progress id="refer" value="0" max="4200"></progress>
         <div id="menu">
-            <h3 id="launch_bar" class="options_bar" onclick="launchPad();">Launch Synth Pad</h3>
+            <h3 id="launch_bar" class="options_bar" onclick="launchPad();">Launch Mix Pad</h3>
             <h3 id="record_bar" class="options_bar" onclick="launchRecordList();">Recordings</h3>
             <h4 id="record_notify" class="options_bar">Recording Saved !</h4>
         </div>
