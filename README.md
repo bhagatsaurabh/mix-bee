@@ -25,3 +25,9 @@ Currently supported effects from tuna.js:
   * Bitcrusher
   * Moog
 
+![Show1](images/show1.png)
+![Show2](images/show2.png)
+![Show3](images/show3.png)
+![Show4](images/show4.png)
+![Show5](images/show5.png)
+![Show6](images/show6.png)
