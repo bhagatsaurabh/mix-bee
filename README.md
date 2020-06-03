@@ -5,7 +5,7 @@ Check it out [here](https://virtual-mix.herokuapp.com/)
 
 Mix, record, download audio on the spot.
 
-  * Create short sound Clips
+  * Play short sound Clips
   * Apply various effects
   * Mix sounds while listening/recording
   * Record
