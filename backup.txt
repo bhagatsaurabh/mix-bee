@@ -1,0 +1,56 @@
+<div id="back_style1" class="pseudo" style="
+    /* width: 100px; */
+    /* height: 57.735px; */
+    cursor: pointer;
+    background-color: greenyellow;
+    width: 100px;
+    height: 57.735px;
+    position: relative;
+"><span style="
+    position: absolute;
+    background-color: black;
+    width: 100%;
+    left: 0;
+    z-index: 1;
+    height: 100%;
+"></span></div>
+
+
+
+    /* width: 100px; */
+    /* height: 57.735px; */
+    cursor: pointer;
+    background-color: greenyellow;
+    width: 100px;
+    height: 57.735px;
+    position: relative;
+
+
+        background-color: black;
+    content: "";
+    position: absolute;
+    left: 21.1325px;
+    box-shadow: 0 0 10px 0;
+    width: 57.735px;
+    height: 57.735px;
+    transform: rotateZ(45deg) skew(347deg, 347deg);
+    top: -28.8675px;
+
+
+    background-color: black;
+    content: "";
+    position: absolute;
+    left: 21.1325px;
+    box-shadow: 0 0 10px 0;
+    width: 57.735px;
+    height: 57.735px;
+    transform: rotateZ(45deg) skew(347deg, 347deg);
+    top: 28.8675px;
+
+
+    position: absolute;
+    background-color: black;
+    width: 100%;
+    left: 0;
+    z-index: 1;
+    height: 100%;
