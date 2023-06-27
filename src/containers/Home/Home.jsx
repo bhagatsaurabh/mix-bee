@@ -1,31 +1,36 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import styles from "./Home.module.css";
 import cover from "@/assets/images/cover-transparent-light.png";
 import { distance, lerp, rand, randInt, slerp } from "@/misc/utils";
-
-const windows = new Array(16)
-  .fill({
-    pos: { x: 0, y: 0 },
-    start: { x: 0, y: 0 },
-    end: { x: 0, y: 0 },
-    el: null,
-    speed: 1,
-  })
-  .map((obj, idx) => ({ ...obj, id: idx }));
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const el = useRef(null);
   const windowEls = useRef([]);
+  const windows = useRef(
+    new Array(16)
+      .fill({
+        pos: { x: 0, y: 0 },
+        start: { x: 0, y: 0 },
+        end: { x: 0, y: 0 },
+        el: null,
+        speed: 1,
+      })
+      .map((obj, idx) => ({ ...obj, id: idx }))
+  );
   const buttonEl = useRef(null);
+  const [launched, setLaunched] = useState(null);
+  const navigate = useNavigate();
+  const [timer, setTimer] = useState(-1);
 
   useEffect(() => {
-    window.requestAnimationFrame(
+    handle = window.requestAnimationFrame(
       animate.bind(
         this,
         performance.now(),
         { w: el.current.clientWidth, h: el.current.clientHeight },
-        windows.map((wndw, idx) => {
+        windows.current.map((wndw, idx) => {
           wndw.el = windowEls.current[idx];
           return wndw;
         })
@@ -34,28 +39,45 @@ const Home = () => {
     /* el.current.addEventListener("pointermove", (e) => {
       setPos({ x: e.clientX - 50, y: e.clientY - 50 });
     }); */
+
+    return () => {
+      clearTimeout(timer);
+      cancelAnimationFrame(handle);
+    };
   }, []);
 
   const handleLaunch = () => {
     const rect = buttonEl.current.getBoundingClientRect();
     const target = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
-    windows.forEach((wndw) => (wndw.converge = target));
+    windows.current.forEach((wndw) => (wndw.converge = target));
+    setLaunched(target);
+    const timerHandle = setTimeout(() => {
+      navigate("/hive");
+    }, 1200);
+    setTimer(timerHandle);
   };
 
   return (
     <main className={styles.home}>
       <section ref={el} className={styles.brand}>
+        <div className={[styles.overlay, launched ? styles.show : ""].join(" ")}></div>
         <div className={styles.mask}>
-          {windows.map((wndw, idx) => (
+          {windows.current.map((wndw, idx) => (
             <div
               key={wndw.id}
               ref={(e) => (windowEls.current[idx] = e)}
-              className={styles.hole}
+              className={[
+                styles.hole,
+                launched ? styles.converge : "",
+                launched && idx !== 0 ? styles.hide : "",
+                launched && idx === 0 ? styles.grow : "",
+              ].join(" ")}
+              style={launched ? { left: launched.x, top: launched.y } : null}
             ></div>
           ))}
         </div>
         <img style={{ pointerEvents: "none" }} src={cover} />
-        <button ref={buttonEl} onClick={handleLaunch}>
+        <button disabled={launched} ref={buttonEl} onClick={handleLaunch}>
           Launch
         </button>
       </section>
@@ -63,16 +85,24 @@ const Home = () => {
   );
 };
 
-// let handle = -1;
+let handle = -1;
 const animate = (startTime, viewport, windows) => {
-  windows.forEach((wndw) => {
+  windows.forEach((wndw, idx) => {
     if (wndw.converge && !wndw.convergeStarted) {
+      return;
       wndw.start = { ...wndw.pos };
       wndw.end = wndw.converge;
       wndw.convergeStarted = true;
     }
     if (distance(wndw.pos, wndw.end) <= wndw.speed + 1) {
-      if (wndw.converge) return;
+      if (wndw.converge) {
+        if (idx !== 0) {
+          wndw.el.classList.add(styles.hide);
+        } else {
+          wndw.el.classList.add(styles.grow);
+        }
+        return;
+      }
       let [startSide, endSide] = [randInt(0, 3), randInt(0, 3)];
       if (startSide === endSide) endSide = (endSide + 1) % 3;
       let [start, end] = [randRect(startSide, viewport), randRect(endSide, viewport)];
@@ -84,7 +114,7 @@ const animate = (startTime, viewport, windows) => {
       wndw.pos = (wndw.converge ? slerp : lerp)(
         wndw.pos,
         wndw.end,
-        wndw.converge ? wndw.speed / 100 : wndw.speed
+        wndw.converge ? wndw.speed / 15 : wndw.speed
       );
     }
 
@@ -92,7 +122,7 @@ const animate = (startTime, viewport, windows) => {
     wndw.el.style.top = wndw.pos.y + "px";
   });
 
-  window.requestAnimationFrame(animate.bind(this, startTime, viewport, windows));
+  handle = window.requestAnimationFrame(animate.bind(this, startTime, viewport, windows));
 };
 
 const randRect = (side, viewport) => {
