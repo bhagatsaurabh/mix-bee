@@ -53,7 +53,7 @@
   background-color: #ccff00;
   mix-blend-mode: hard-light;
 }
-.brand .mask .hole {
+.brand .mask .window {
   position: absolute;
   left: 0px;
   top: 0px;
@@ -67,15 +67,15 @@
   transition: opacity 0.15s linear, width 0.2s linear, height 0.2s linear, border-radius 0.2s linear;
   transform: translate(-50%, -50%);
 }
-.brand .mask .hole.hide {
+.brand .mask .window.hide {
   opacity: 0;
 }
-.brand .mask .hole.converge {
+.brand .mask .window.converge {
   transition: opacity 0.1s linear 0.5s, width 0.2s linear 0.7s, height 0.2s linear 0.7s,
     border-radius 0.5s linear 0.7s, left 0.7s cubic-bezier(0.24, 0.63, 0.19, 0.98),
     top 0.7s cubic-bezier(0.24, 0.63, 0.19, 0.98);
 }
-.brand .mask .hole.grow {
+.brand .mask .window.grow {
   width: 150vw;
   height: 150vh;
   border-radius: 0;

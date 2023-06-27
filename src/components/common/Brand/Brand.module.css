@@ -1,0 +1,22 @@
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  color: #40aa22;
+  width: calc(100vw - 2rem);
+}
+
+.brand img {
+  margin-right: 0.5rem;
+}
+
+.brand .title {
+  font-family: Avenger;
+}
+
+@media (min-width: 768px) {
+  .brand {
+    width: auto;
+  }
+}

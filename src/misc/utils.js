@@ -24,3 +24,7 @@ export const lerp = (start, end, amount) => {
     y: (1 - t) * start.y + t * end.y,
   };
 };
+
+export const flip = (input) => {
+  return [input[1], input[0]];
+};

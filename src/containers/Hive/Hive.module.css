@@ -1,0 +1,81 @@
+.hive {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-image: url("../../assets/images/back.jpg");
+  background-size: 50%;
+}
+.hive .mask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  mix-blend-mode: hard-light;
+}
+.hive .mask .ripple {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  transform: translate(-50%, -50%);
+  background-color: gray;
+  transition: all 0.5s ease-out;
+  border-radius: 50%;
+  filter: blur(20px);
+  animation-name: grow;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-duration: 0.5s;
+}
+.hive .mask .ripple::before {
+  content: "";
+  width: 0px;
+  top: 50%;
+  left: 50%;
+  display: block;
+  height: 0px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: #000;
+  transition: all 0.5s ease-out;
+  filter: blur(20px);
+  animation-name: grow;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-duration: 0.5s;
+  animation-delay: 0.3s;
+}
+
+@keyframes grow {
+  0% {
+    width: 0px;
+    height: 0px;
+  }
+  100% {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+.textvert {
+  writing-mode: vertical-lr;
+  transform: rotateZ(180deg);
+  white-space: nowrap;
+  position: absolute;
+  right: 0;
+  padding: 0.5rem;
+  pointer-events: none;
+  z-index: 20;
+  color: #303030 !important;
+  bottom: 0;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .hive {
+    background-size: 25%;
+  }
+}

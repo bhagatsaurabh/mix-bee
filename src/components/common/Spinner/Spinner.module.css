@@ -1,0 +1,24 @@
+.spinner {
+  animation-name: spin;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+
+.spinner.dark img {
+  filter: invert(1);
+}
+.spinner-text {
+  margin: 0.5rem 0 0 0;
+  font-weight: 100;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
