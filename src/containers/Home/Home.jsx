@@ -67,7 +67,7 @@ const Home = () => {
               key={wndw.id}
               ref={(e) => (windowEls.current[idx] = e)}
               className={[
-                styles.hole,
+                styles.window,
                 launched ? styles.converge : "",
                 launched && idx !== 0 ? styles.hide : "",
                 launched && idx === 0 ? styles.grow : "",
