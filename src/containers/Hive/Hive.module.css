@@ -74,8 +74,33 @@
   user-select: none;
 }
 
+.recordingsbutton {
+  position: fixed;
+  right: -6rem;
+  z-index: 50;
+  top: 10rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.recordings {
+  position: absolute;
+  z-index: 50;
+  width: 100%;
+  height: 100%;
+  background-color: green;
+  right: 0;
+  box-shadow: 0px 0px 10px 0px #000, 0px 0px 50px 0px #939393;
+}
+
 @media (min-width: 768px) {
   .hive {
     background-size: 25%;
+  }
+  .recordingsbutton:hover {
+    right: 0rem;
+  }
+  .recordings {
+    width: 24rem;
   }
 }

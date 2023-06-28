@@ -1,4 +1,4 @@
-.header {
+.footer {
   position: relative;
   width: calc(100% - 2rem);
   z-index: 10;
@@ -10,22 +10,14 @@
   background-color: transparent;
   pointer-events: none;
 }
-.header.fixed {
+.footer.fixed {
   position: fixed;
+  bottom: 0;
 }
 
-.header .left {
+.footer .left {
   pointer-events: all;
 }
-.header .center {
-  display: flex;
-  pointer-events: all;
-  position: absolute;
-  height: 100%;
-  left: 50%;
-  top: 0;
-  transform: translateX(-50%);
-}
-.header .right {
+.footer .right {
   pointer-events: all;
 }
