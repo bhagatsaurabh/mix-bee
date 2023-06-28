@@ -1,0 +1,38 @@
+.hexpad {
+  position: relative;
+  cursor: pointer;
+  transform: rotateZ(90deg);
+  width: 54px;
+  height: 31.176px;
+}
+.hexpad::before {
+  background-color: greenyellow;
+  content: "";
+  position: absolute;
+  left: 11.412px;
+  box-shadow: 0 0 10px 0;
+  width: 31.176px;
+  height: 31.176px;
+  transform: rotateZ(45deg) skew(347deg, 347deg);
+  top: -15.588px;
+}
+.hexpad::after {
+  background-color: greenyellow;
+  content: "";
+  position: absolute;
+  left: 11.412px;
+  box-shadow: 0 0 10px 0;
+  width: 31.176px;
+  height: 31.176px;
+  transform: rotateZ(45deg) skew(347deg, 347deg);
+  top: 15.588px;
+}
+
+.hexpad span {
+  position: absolute;
+  background-color: greenyellow;
+  width: 100%;
+  left: 0;
+  z-index: 1;
+  height: 100%;
+}
