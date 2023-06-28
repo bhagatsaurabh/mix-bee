@@ -15,8 +15,9 @@ const Button = ({
   className,
   children,
   fit,
-  round,
   flat,
+  background,
+  shadowflip,
 }) => {
   const bSize = size || 1;
   const bAccent = styles[accent] ?? styles["light"];
@@ -24,7 +25,8 @@ const Button = ({
   if (className) classes.push(className);
   if (fit) classes.push(styles.fit);
   if (flat) classes.push(styles.flat);
-  if (round) classes.push(styles.round);
+  if (background) classes.push(styles.background);
+  if (shadowflip) classes.push(styles.shadowflip);
 
   let content = [];
   const iconClasses = [];
