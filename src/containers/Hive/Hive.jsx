@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useOutlet } from "react-router-dom";
-import { CSSTransition, SwitchTransition } from "react-transition-group";
+import { CSSTransition } from "react-transition-group";
 
 import styles from "./Hive.module.css";
 import { routes } from "@/router";
@@ -10,6 +10,7 @@ import Symbol from "@/components/common/Symbol/Symbol";
 import Button from "@/components/common/Button/Button";
 import Footer from "@/components/common/Footer/Footer";
 import Controls from "@/components/Controls/Controls";
+import Mixer from "@/components/Mixer/Mixer";
 
 const Hive = ({}) => {
   const [ripples, setRipples] = useState([]);
@@ -76,6 +77,7 @@ const Hive = ({}) => {
             </div>
           )}
         </CSSTransition>
+        <Mixer />
         <Controls state={status} />
       </main>
       <Symbol className={styles.textvert} />
