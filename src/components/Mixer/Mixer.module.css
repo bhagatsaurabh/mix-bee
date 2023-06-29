@@ -1,6 +1,108 @@
 .mixer {
-  position: relative;
+  position: absolute;
   top: 50%;
-  display: flex;
-  justify-content: center;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation-name: fadein;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-delay: 0.5s;
+}
+
+.left,
+.right,
+.main {
+  animation-timing-function: ease-out;
+  animation-duration: 0.4s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.8s;
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes detach-left {
+  0% {
+    left: -104px;
+    top: 0;
+  }
+  80% {
+    left: 0;
+    top: 0;
+  }
+  100% {
+    left: 0;
+    top: 30px;
+  }
+}
+
+@keyframes detach-right {
+  0% {
+    left: 104px;
+    top: 0;
+  }
+  80% {
+    left: 0;
+    top: 0;
+  }
+  100% {
+    left: 0;
+    top: 30px;
+  }
+}
+
+@keyframes move-main {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: -100px;
+  }
+}
+@keyframes move-left {
+  0% {
+    top: 30px;
+  }
+  100% {
+    top: 50px;
+  }
+}
+@keyframes move-right {
+  0% {
+    top: 30px;
+  }
+  100% {
+    top: 230px;
+  }
+}
+
+@media (orientation: landscape) {
+  .left {
+    animation-name: detach-left;
+  }
+  .right {
+    animation-name: detach-right;
+  }
+}
+
+@media (orientation: portrait) {
+  .left {
+    left: -208px !important;
+    animation-name: move-left;
+  }
+  .right {
+    left: 208px !important;
+    animation-name: move-right;
+  }
+  .main {
+    animation-name: move-main;
+  }
 }
