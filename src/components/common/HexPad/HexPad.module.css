@@ -1,38 +1,54 @@
 .hexpad {
-  position: relative;
+  position: absolute;
   cursor: pointer;
-  transform: rotateZ(90deg);
+  transform: translate(-50%, -50%) rotateZ(90deg);
   width: 54px;
   height: 31.176px;
+  transition: left 0.2s ease-out, top 0.2s ease-out, transform 0.1s linear;
 }
 .hexpad::before {
-  background-color: greenyellow;
+  background-color: #adff2f;
   content: "";
   position: absolute;
   left: 11.412px;
-  box-shadow: 0 0 10px 0;
   width: 31.176px;
   height: 31.176px;
   transform: rotateZ(45deg) skew(347deg, 347deg);
   top: -15.588px;
+  transition: background-color 0.1s linear;
 }
 .hexpad::after {
-  background-color: greenyellow;
+  background-color: #adff2f;
   content: "";
   position: absolute;
   left: 11.412px;
-  box-shadow: 0 0 10px 0;
   width: 31.176px;
   height: 31.176px;
   transform: rotateZ(45deg) skew(347deg, 347deg);
+  transition: background-color 0.1s linear;
   top: 15.588px;
 }
 
 .hexpad span {
   position: absolute;
-  background-color: greenyellow;
+  background-color: #adff2f;
   width: 100%;
   left: 0;
   z-index: 1;
   height: 100%;
+  transition: background-color 0.1s linear;
+}
+
+.hexpad:active {
+  transform: translate(-50%, -50%) rotateZ(90deg) scale(0.85);
+}
+
+.hexpad.active span {
+  background-color: #40aa22;
+}
+.hexpad.active::before {
+  background-color: #40aa22;
+}
+.hexpad.active::after {
+  background-color: #40aa22;
 }
