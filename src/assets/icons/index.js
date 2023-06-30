@@ -10,3 +10,4 @@ export { default as recordsave } from "./recordsave.png";
 export { default as back } from "./back.png";
 export { default as close } from "./close.png";
 export { default as download } from "./download.png";
+export { default as bug } from "./bug.png";
