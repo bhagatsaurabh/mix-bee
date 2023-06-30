@@ -18,7 +18,7 @@ const HexPad = ({ group, data, onClick }) => {
       data-id={data.id}
       style={{ left: data.pos.x, top: data.pos.y }}
       className={classes.join(" ")}
-      onClick={() => isLoaded && onClick?.(group, data.id)}
+      onClick={() => isLoaded && onClick?.(group, data.id, isActive)}
     >
       <span></span>
     </div>

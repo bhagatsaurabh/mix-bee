@@ -10,7 +10,7 @@ const HexGroup = ({ group, className, onClick }) => {
       {group.hexpads.map((hexpad) => (
         <HexPad
           group={group.id}
-          onClick={(g, id) => onClick(g, id)}
+          onClick={(g, id, state) => onClick(g, id, state)}
           key={hexpad.id}
           data={hexpad}
         />
