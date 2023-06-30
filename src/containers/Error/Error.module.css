@@ -24,6 +24,9 @@ h1 {
 .content button {
   border: 1px solid lightgrey;
 }
+.content a {
+  text-decoration: none;
+}
 .content button img {
   filter: unset !important;
 }
