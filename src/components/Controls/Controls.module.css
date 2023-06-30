@@ -9,6 +9,24 @@
   align-items: center;
   padding: 1rem 2rem;
   gap: 0.5rem;
-  box-shadow: 4px 4px 10px 0px #000, 0px 0px 60px 0px #717171;
   user-select: none;
+  padding-bottom: 0.8rem;
+}
+.controls button {
+}
+
+.blink img {
+  animation: 1s linear 0s blink infinite forwards;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
