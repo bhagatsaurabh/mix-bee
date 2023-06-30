@@ -1,6 +1,7 @@
 import Icon from "@/components/common/Icon/Icon";
 import styles from "./Error.module.css";
 import Button from "@/components/common/Button/Button";
+import { Link } from "react-router-dom";
 
 const Error = ({}) => {
   return (
@@ -11,9 +12,15 @@ const Error = ({}) => {
         <h3>Please try reloading the page</h3>
       </section>
       <section className={styles.content}>
-        <Button icon="bug" left accent="dark">
-          Report an issue
-        </Button>
+        <Link
+          target="_blank"
+          rel="noreferrer"
+          to="https://github.com/saurabh-prosoft/mix-bee/issues/new?title=The%20app%20crashed%20!&body=Please%20add%20details%20here..."
+        >
+          <Button icon="bug" left accent="dark">
+            Report an issue
+          </Button>
+        </Link>
       </section>
     </main>
   );
