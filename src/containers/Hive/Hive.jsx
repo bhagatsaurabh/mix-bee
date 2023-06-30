@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useOutlet } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 
@@ -18,7 +18,8 @@ const Hive = ({}) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { nodeRef } = routes[1].children.find((route) => route.path === location.pathname) ?? {};
-  const [status, setStatus] = useState("stopped");
+  const [status, setStatus] = useState({ playback: false, record: false, save: false });
+  const mixer = useRef(null);
 
   useEffect(() => {
     document.onpointerdown = (e) => {
@@ -67,7 +68,7 @@ const Hive = ({}) => {
         <CSSTransition
           in={location.pathname === "/hive/recordings"}
           nodeRef={nodeRef}
-          timeout={500}
+          timeout={300}
           classNames="slide"
           unmountOnExit
         >
@@ -77,8 +78,18 @@ const Hive = ({}) => {
             </div>
           )}
         </CSSTransition>
-        <Mixer onStart={() => setStatus("started")} onStop={() => setStatus("stopped")} />
-        <Controls state={status} />
+        <Mixer
+          ref={mixer}
+          onStart={() => setStatus({ ...status, playback: true })}
+          onStop={() => setStatus({ ...status, playback: false })}
+          onRecordStart={() => setStatus({ ...status, record: true })}
+          onRecordStop={() => setStatus({ ...status, record: false })}
+        />
+        <Controls
+          status={status}
+          onStop={() => mixer.current?.stopAll()}
+          onRecord={() => mixer.current?.record()}
+        />
       </main>
       <Symbol className={styles.textvert} />
       <Footer

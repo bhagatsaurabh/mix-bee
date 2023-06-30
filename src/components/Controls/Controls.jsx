@@ -1,13 +1,23 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-
 import styles from "./Controls.module.css";
 import Button from "@/components/common/Button/Button";
 
-const Controls = ({ onStop, onRecord, state }) => {
+const Controls = ({ onStop, onRecord, status }) => {
   return (
     <aside className={styles.controls}>
-      <Button disabled={state === "stopped"} onClick={onStop} icon="stop" size={1} background />
-      <Button disabled={state === "stopped"} onClick={onRecord} icon="record" size={1} background />
+      <Button disabled={!status.playback} onClick={onStop} icon="stop" left size={1} background>
+        Stop
+      </Button>
+      <Button
+        disabled={!status.playback}
+        onClick={onRecord}
+        icon={"record"}
+        left
+        size={1}
+        background
+        className={status.record ? styles.blink : ""}
+      >
+        {status.record ? "Recording" : "Record"}
+      </Button>
     </aside>
   );
 };
