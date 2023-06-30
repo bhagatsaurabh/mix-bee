@@ -41,7 +41,7 @@
 }
 
 .hexpad:active {
-  transform: translate(-50%, -50%) rotateZ(90deg) scale(0.85);
+  transform: translate(-50%, -50%) rotateZ(90deg) scale(0.85) !important;
 }
 
 .hexpad.active span {

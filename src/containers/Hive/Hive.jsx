@@ -77,7 +77,7 @@ const Hive = ({}) => {
             </div>
           )}
         </CSSTransition>
-        <Mixer />
+        <Mixer onStart={() => setStatus("started")} onStop={() => setStatus("stopped")} />
         <Controls state={status} />
       </main>
       <Symbol className={styles.textvert} />
