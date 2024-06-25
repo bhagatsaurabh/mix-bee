@@ -94,7 +94,7 @@ const Hive = ({}) => {
       <Symbol className={styles.textvert} />
       <Footer
         left={
-          <a href="https://github.com/saurabh-prosoft/mix-bee" rel="noreferrer" target="_blank">
+          <a href="https://github.com/bhagatsaurabh/mix-bee" rel="noreferrer" target="_blank">
             <Button className="fs-0" icon="github" size={2} fit background />
           </a>
         }

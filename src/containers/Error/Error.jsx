@@ -15,7 +15,7 @@ const Error = ({}) => {
         <Link
           target="_blank"
           rel="noreferrer"
-          to="https://github.com/saurabh-prosoft/mix-bee/issues/new?title=The%20app%20crashed%20!&body=Please%20add%20details%20here..."
+          to="https://github.com/bhagatsaurabh/mix-bee/issues/new?title=The%20app%20crashed%20!&body=Please%20add%20details%20here..."
         >
           <Button icon="bug" left accent="dark">
             Report an issue
