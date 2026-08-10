@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://mix-bee.saurabhagat.me">
+<a href="https://mixbee.saurabhagat.dev">
 <img width="50%" alt="vAP Cover" src="https://raw.githubusercontent.com/bhagatsaurabh/mix-bee/main/src/assets/images/cover.png" />
 </a>
 </p>
@@ -16,7 +16,7 @@
 
 A simple and basic yet effective sound mixing and recording webapp
 
-Start mixing [here](https://mix-bee.saurabhagat.me/) !
+Start mixing [here](https://mixbee.saurabhagat.dev/) !
 
 <br/>
 
